@@ -9,7 +9,6 @@ import {
   CTableHeaderCell,
   CTableDataCell
 } from '@coreui/react';
-import { object } from 'prop-types';
 
 const Restaurant = () => {
 
