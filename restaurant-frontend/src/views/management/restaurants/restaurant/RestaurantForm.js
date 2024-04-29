@@ -64,11 +64,16 @@ const RestaurantForm = () => {
         });
     }
 
+    function handleReturn(event){
+        navigate('/restaurants/restaurant');
+    }
+
     const handleSubmit = async(event)=>{
         event.preventDefault();
         try{
             const response = await Axios.post('http://localhost:1337/api/createrestaurant', restaurantData);
             console.log(response.data);
+            navigate('/restaurants/restaurant');
         }
         catch (e){
             console.log(e);
@@ -107,6 +112,9 @@ const RestaurantForm = () => {
             </CCol>
             <CCol xs={6}>
                 <CButton color="primary" type="submit" >Save</CButton>
+            </CCol>
+            <CCol xs={6}>
+                <CButton color="secondary" onClick={handleReturn}>Cancel</CButton>
             </CCol>
         </CForm>
     )

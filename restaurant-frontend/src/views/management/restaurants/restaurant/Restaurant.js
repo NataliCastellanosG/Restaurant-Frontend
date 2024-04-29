@@ -55,11 +55,6 @@ const Restaurant = () => {
     },
     {
       title: 'Options',
-      render: (text, record) => (
-        <div>
-
-        </div>
-      ),
     }
   ]
 
