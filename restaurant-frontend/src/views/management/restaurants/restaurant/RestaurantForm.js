@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import Axios from "axios";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Axios from 'axios';
 import {
     CForm,
     CCol,
     CFormInput,
     CFormSelect,
-    CFormCheck,
     CButton
 } from '@coreui/react'
 
@@ -22,6 +22,7 @@ const RestaurantForm = () => {
     const [selectedDepartment, setSelectedDepartment] = useState('');
     const [cities, setCities] = useState([]);
     const [selectedCity, setSelectedCity] = useState('');
+    const navigate = useNavigate();
 
     useEffect(()=>{
         const getDepartments = async () => {
@@ -63,7 +64,8 @@ const RestaurantForm = () => {
         });
     }
 
-    const handleSubmit = async()=>{
+    const handleSubmit = async(event)=>{
+        event.preventDefault();
         try{
             const response = await Axios.post('http://localhost:1337/api/createrestaurant', restaurantData);
             console.log(response.data);
@@ -76,10 +78,10 @@ const RestaurantForm = () => {
     return(
         <CForm className="row g-3" onSubmit={handleSubmit}>
             <CCol md={12}>
-                <CFormInput type="text" id="restaurantName" label="Name" value={restaurantData.restaurantName} onChange={handleChange} />
+                <CFormInput type="text" id="restaurantName" name="restaurantName" label="Name" value={restaurantData.restaurantName} onChange={handleChange} />
             </CCol>
             <CCol md={12}>
-                <CFormInput type="text" id="restaurantNit" label="Nit" value={restaurantData.restaurantNit} onChange={handleChange} />
+                <CFormInput type="text" id="restaurantNit" name="restaurantNit" label="Nit" value={restaurantData.restaurantNit} onChange={handleChange} />
             </CCol>
             <CCol xs={4}>
                 <CFormSelect id="departmentOptions" label = "Department" value={ selectedDepartment} onChange={handleSelectDepartments} >
@@ -98,13 +100,13 @@ const RestaurantForm = () => {
                 </CFormSelect>
             </CCol>
             <CCol xs={4}>
-                <CFormInput type="text" id="restaurantAddress" label="Address" value={restaurantData.restaurantAddress} onChange={handleChange} />
+                <CFormInput type="text" id="restaurantAddress" name="restaurantAddress" label="Address" value={restaurantData.restaurantAddress} onChange={handleChange} />
             </CCol>
             <CCol md={12}>
-                <CFormInput type="text" id="restaurantPhone" label="Phone" value={restaurantData.restaurantPhone} onChange={handleChange} />
+                <CFormInput type="text" id="restaurantPhone" name="restaurantPhone" label="Phone" value={restaurantData.restaurantPhone} onChange={handleChange} />
             </CCol>
-            <CCol xs={12}>
-                <CButton color="primary" type="submit">Save</CButton>
+            <CCol xs={6}>
+                <CButton color="primary" type="submit" >Save</CButton>
             </CCol>
         </CForm>
     )
